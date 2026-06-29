@@ -1,24 +1,26 @@
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/common/widgets/custom_button.dart';
 import '../../../core/theme/app_colors.dart';
+import '../controller/auth_controller.dart';
 
-class LoginScreen extends StatefulWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   static const String routeName = '/loginScreen';
   const LoginScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  final phoneController = TextEditingController();
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _phoneController = TextEditingController();
   Country? _country;
 
   @override
   void dispose() {
-    phoneController.dispose();
+    _phoneController.dispose();
     super.dispose();
   }
 
@@ -34,6 +36,19 @@ class _LoginScreenState extends State<LoginScreen> {
         });
       },
     );
+  }
+
+  void sendPhoneNumber() {
+    final String phoneNumber = _phoneController.text.trim();
+
+    if (_country != null && phoneNumber.isNotEmpty) {
+      ref
+          .read(authControllerProvider)
+          .signInWithPhone(
+            context: context,
+            phoneNumber: '${_country!.phoneCode}$phoneNumber',
+          );
+    }
   }
 
   @override
@@ -65,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(
                   width: size.width * 0.7,
                   child: TextField(
-                    controller: phoneController,
+                    controller: _phoneController,
                     decoration: const InputDecoration(
                       hintText: 'Phone number',
                     ),

@@ -1,9 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/common/utils/show_snack_bar.dart';
 import '../screens/otp_screen.dart';
+
+final authRepositoryProvider = Provider(
+  (ref) => AuthRepository(
+    firebaseAuth: FirebaseAuth.instance,
+    firebaseFirestore: FirebaseFirestore.instance,
+  ),
+);
 
 class AuthRepository {
   final FirebaseAuth firebaseAuth;
@@ -14,7 +22,10 @@ class AuthRepository {
     required this.firebaseFirestore,
   });
 
-  void signInWithPhone(String phoneNumber, BuildContext context) async {
+  void signInWithPhone({
+    required String phoneNumber,
+    required BuildContext context,
+  }) async {
     try {
       await firebaseAuth.verifyPhoneNumber(
         phoneNumber: phoneNumber,
