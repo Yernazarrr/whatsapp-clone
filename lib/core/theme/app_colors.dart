@@ -14,4 +14,6 @@ abstract final class AppColors {
   static const Color dividerColor = Color.fromRGBO(37, 45, 50, 1);
   static const Color chatBarMessage = Color.fromRGBO(30, 36, 40, 1);
   static const Color mobileChatBoxColor = Color.fromRGBO(31, 44, 52, 1);
+  static const Color greyColor = Colors.grey;
+  static const Color blackColor = Colors.black;
 }
