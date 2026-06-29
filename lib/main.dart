@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import 'core/router/router.dart';
 import 'core/theme/app_colors.dart';
 import 'features/landing/screens/landing_screen.dart';
 import 'firebase_options.dart';
@@ -23,7 +24,11 @@ class MyApp extends StatelessWidget {
       title: 'Whatsapp UI',
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: AppColors.backgroundColor,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: AppColors.appBarColor,
+        ),
       ),
+      onGenerateRoute: onGenerateRoute,
       home: const LandingScreen(),
     );
   }

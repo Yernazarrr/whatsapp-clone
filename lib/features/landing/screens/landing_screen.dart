@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 
 import '../../../core/common/widgets/custom_button.dart';
 import '../../../core/theme/app_colors.dart';
+import '../../auth/screens/login_screen.dart';
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({super.key});
+
+  Future<void> onPressed(BuildContext context) async {
+    await Navigator.pushNamed(context, LoginScreen.routeName);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +46,7 @@ class LandingScreen extends StatelessWidget {
             SizedBox(
               width: size.width * 0.75,
               child: CustomButton(
-                onPressed: () {},
+                onPressed: () => onPressed(context),
                 buttonText: 'AGREE AND CONTINUE',
               ),
             ),
